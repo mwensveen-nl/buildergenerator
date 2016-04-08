@@ -6,5 +6,6 @@
    <feature url="features/bg-feature-1.0.0.jar" id="bg-feature" version="1.0.0">
       <category name="MWensveen.nl buildergenerator"/>
    </feature>
+   <bundle id="bg-plugin" version="1.0.0"/>
    <category-def name="MWensveen.nl buildergenerator" label="MWensveen.nl buildergenerator"/>
 </site>

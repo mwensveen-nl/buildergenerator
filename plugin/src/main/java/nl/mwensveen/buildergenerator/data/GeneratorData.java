@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The Class GeneratorData holds all data needed for the generation of a Builder.
+ * The Class GeneratorData holds all data needed for the generation of a
+ * Builder.
  */
 public class GeneratorData {
 
@@ -23,9 +24,10 @@ public class GeneratorData {
 
 	public GeneratorData() {
 		options = new ArrayList<>();
-		options.add(new Option("Use 'with' prefix i/o 'get' for builder method names", USE_WITH_PREFIX));
+		options.add(new Option("Use 'with' prefix i/o 'set' for builder method names", USE_WITH_PREFIX));
 		options.add(new Option("Generate 'Add' methods for Collection fields", GENERATE_ADD_METHODS_FOR_COLLECTIONS));
-		options.add(new Option("Generate vararg methods for Collection fields", GENERATE_VARARG_METHODS_FOR_COLLECTIONS));
+		options.add(
+				new Option("Generate vararg methods for Collection fields", GENERATE_VARARG_METHODS_FOR_COLLECTIONS));
 		options.add(new Option("Generate copy constructor in builder", GENERATE_COPY_CONSTRUCTOR));
 		options.add(new Option("Generate builder factory method on bean", GENERATE_BUILD_FACTORY_METHOD_ON_BEAN));
 		options.add(new Option("Generate class constructor with builder on bean", CLASS_CONSTRUCTOR));
