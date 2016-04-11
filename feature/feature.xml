@@ -2,7 +2,8 @@
 <feature
       id="bg-feature"
       label="Builder Pattern Eclipse Plugin"
-      version="1.0.0">
+      version="1.0.0"
+      plugin="bg-plugin">
 
    <license url="http://en.wikipedia.org/wiki/MIT_License">
       Copyright (c) 2016 MWensveen.nl
