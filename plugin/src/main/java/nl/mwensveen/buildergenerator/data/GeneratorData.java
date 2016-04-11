@@ -16,6 +16,7 @@ public class GeneratorData {
 	public static final String GENERATE_VARARG_METHODS_FOR_COLLECTIONS = "GenerateVarargMethodsForCollections";
 	public static final String GENERATE_ADD_METHODS_FOR_COLLECTIONS = "GenerateAddMethodsForCollections";
 	public static final String USE_WITH_PREFIX = "UseWithPrefix";
+	public static final String GENERATE_JAVADOC = "GenerateJavaDoc";
 
 	private final List<BuilderField> fields = new ArrayList<>();
 	private final List<Option> options;
@@ -32,6 +33,7 @@ public class GeneratorData {
 		options.add(new Option("Generate builder factory method on bean", GENERATE_BUILD_FACTORY_METHOD_ON_BEAN));
 		options.add(new Option("Generate class constructor with builder on bean", CLASS_CONSTRUCTOR));
 		options.add(new Option("Format source (entire file)", FORMAT_SOURCE));
+		options.add(new Option("Generate JavaDoc", GENERATE_JAVADOC));
 	}
 
 	public void setOption(String key, boolean selected) {

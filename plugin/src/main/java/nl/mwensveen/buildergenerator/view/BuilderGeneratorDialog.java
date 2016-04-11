@@ -69,7 +69,7 @@ public class BuilderGeneratorDialog extends org.eclipse.swt.widgets.Dialog {
 	 */
 	private void createContents() {
 		shell = new Shell(getParent(), SWT.BORDER | SWT.RESIZE | SWT.TITLE | SWT.APPLICATION_MODAL);
-		shell.setSize(500, 530);
+		shell.setSize(500, 550);
 		shell.setText(getText());
 		shell.setLayout(new FormLayout());
 
@@ -182,7 +182,7 @@ public class BuilderGeneratorDialog extends org.eclipse.swt.widgets.Dialog {
 		grpOptions.setLayout(new RowLayout(SWT.VERTICAL));
 		FormData fd_grpOptions = new FormData();
 		fd_grpOptions.top = new FormAttachment(scrolledComposite, 20, SWT.BOTTOM);
-		fd_grpOptions.bottom = new FormAttachment(scrolledComposite, 240, SWT.BOTTOM);
+		fd_grpOptions.bottom = new FormAttachment(scrolledComposite, 260, SWT.BOTTOM);
 		fd_grpOptions.right = new FormAttachment(scrolledComposite, 0, SWT.RIGHT);
 		fd_grpOptions.left = new FormAttachment(scrolledComposite, 0, SWT.LEFT);
 		grpOptions.setLayoutData(fd_grpOptions);
@@ -212,7 +212,8 @@ public class BuilderGeneratorDialog extends org.eclipse.swt.widgets.Dialog {
 	private ScrolledComposite createFieldCheckBoxes() {
 
 		Label label = new Label(shell, SWT.NONE);
-		// txtSelectTheFields.setBackground(SWTResourceManager.getColor(242, 241, 240));
+		// txtSelectTheFields.setBackground(SWTResourceManager.getColor(242,
+		// 241, 240));
 		label.setText("Select the Fields to include in the Builder");
 		FormData fd_txtSelectTheFields = new FormData();
 		fd_txtSelectTheFields.top = new FormAttachment(0, 0);
@@ -267,8 +268,8 @@ public class BuilderGeneratorDialog extends org.eclipse.swt.widgets.Dialog {
 		Rectangle mySize = shell.getBounds();
 
 		int locationX, locationY;
-		locationX = ((parentSize.width - mySize.width) / 2) + parentSize.x;
-		locationY = ((parentSize.height - mySize.height) / 2) + parentSize.y;
+		locationX = (parentSize.width - mySize.width) / 2 + parentSize.x;
+		locationY = (parentSize.height - mySize.height) / 2 + parentSize.y;
 
 		shell.setLocation(new Point(locationX, locationY));
 	}

@@ -53,7 +53,7 @@ public class BuilderGenerator {
 			PrintWriter pw = new PrintWriter(sw);
 			removeOldFactoryMethod(cu);
 			removeOldCopyMethod(cu);
-			int pos = (clazz.getSourceRange().getOffset() + clazz.getSourceRange().getLength()) - 1;
+			int pos = clazz.getSourceRange().getOffset() + clazz.getSourceRange().getLength() - 1;
 			pw.println();
 			Set<String> importClasses = createBuilderClass(clazz, pw);
 			for (String importClass : importClasses) {
@@ -70,8 +70,8 @@ public class BuilderGenerator {
 				buffer.replace(pos, 0, sw.toString());
 				String builderSource = buffer.getContents();
 
-				TextEdit text = ToolFactory.createCodeFormatter(null).format(CodeFormatter.K_COMPILATION_UNIT, builderSource, 0, builderSource.length(), 0,
-						"\n");
+				TextEdit text = ToolFactory.createCodeFormatter(null).format(CodeFormatter.K_COMPILATION_UNIT,
+						builderSource, 0, builderSource.length(), 0, "\n");
 				// text is null if source cannot be formatted
 				if (text != null) {
 					Document simpleDocument = new Document(builderSource);
@@ -96,19 +96,30 @@ public class BuilderGenerator {
 		}
 
 		String clazzName = clazz.getElementName();
-		pw.println("/**");
-		pw.println(" * Constructor that creates a " + clazzName + " with the values of a " + clazzName + "." + BUILDER_CLASSNAME + ".");
-		pw.println(" */");
+		if (generateJavaDoc()) {
+			pw.println("/**");
+			pw.println(" * Constructor that creates a " + clazzName + " with the values of a " + clazzName + "."
+					+ BUILDER_CLASSNAME + ".");
+			pw.println(" */");
+		}
 		pw.println("private " + clazzName + "(" + BUILDER_CLASSNAME + " builder){");
 		for (BuilderField field : data.getSelectedFields()) {
-			pw.println("  this." + BuilderFieldUtil.getName(field) + " = builder." + BuilderFieldUtil.getName(field) + ";");
+			pw.println("  this." + BuilderFieldUtil.getName(field) + " = builder." + BuilderFieldUtil.getName(field)
+					+ ";");
 		}
 		pw.println("}");
 	}
 
+	private boolean generateJavaDoc() {
+		return data.isOption(GeneratorData.GENERATE_JAVADOC);
+	}
+
 	private Set<String> createBuilderClass(IType clazz, PrintWriter pw) throws JavaModelException {
-		pw.println("/**\n* This class provides methods to build a {@link " + clazz.getFullyQualifiedName() + "}.\n*/");
-		pw.println("public static class " + BUILDER_CLASSNAME + " {");
+		if (generateJavaDoc()) {
+			pw.println(
+					"/**\n* This class provides methods to build a {@link " + clazz.getFullyQualifiedName() + "}.\n*/");
+			pw.println("public static class " + BUILDER_CLASSNAME + " {");
+		}
 
 		createFieldDeclarations(pw);
 		createCopyConstructor(pw, clazz);
@@ -139,10 +150,12 @@ public class BuilderGenerator {
 	}
 
 	private void printBuildMethodJavadoc(PrintWriter pw, String clazzName) {
-		pw.println("/**");
-		pw.println(" * Creates a new {@link " + clazzName + "} based on this " + BUILDER_CLASSNAME + ".");
-		pw.println(" * @return a new " + clazzName);
-		pw.println(" */");
+		if (generateJavaDoc()) {
+			pw.println("/**");
+			pw.println(" * Creates a new {@link " + clazzName + "} based on this " + BUILDER_CLASSNAME + ".");
+			pw.println(" * @return a new " + clazzName);
+			pw.println(" */");
+		}
 	}
 
 	private void createBuildWithClassConstructor(PrintWriter pw, IType clazz) {
@@ -157,8 +170,8 @@ public class BuilderGenerator {
 
 	private void removeOldFactoryMethod(ICompilationUnit cu) throws JavaModelException {
 		for (IMethod method : cu.getTypes()[0].getMethods()) {
-			if ((method.getParameterTypes().length == 0) && Flags.isStatic(method.getFlags()) && method.getElementName().equals("builder")
-					&& method.getReturnType().equals("QBuilder;")) {
+			if (method.getParameterTypes().length == 0 && Flags.isStatic(method.getFlags())
+					&& method.getElementName().equals("builder") && method.getReturnType().equals("QBuilder;")) {
 				method.delete(true, null);
 				break;
 			}
@@ -167,7 +180,8 @@ public class BuilderGenerator {
 
 	private void removeOldCopyMethod(ICompilationUnit cu) throws JavaModelException {
 		for (IMethod method : cu.getTypes()[0].getMethods()) {
-			if ((method.getParameterTypes().length == 0) && method.getElementName().equals("toBuilder") && method.getReturnType().equals("QBuilder;")) {
+			if (method.getParameterTypes().length == 0 && method.getElementName().equals("toBuilder")
+					&& method.getReturnType().equals("QBuilder;")) {
 				method.delete(true, null);
 				break;
 			}
@@ -176,7 +190,7 @@ public class BuilderGenerator {
 
 	private void removeOldClassConstructor(ICompilationUnit cu) throws JavaModelException {
 		for (IMethod method : cu.getTypes()[0].getMethods()) {
-			if (method.isConstructor() && (method.getParameterTypes().length == 1)
+			if (method.isConstructor() && method.getParameterTypes().length == 1
 					&& method.getParameterTypes()[0].equals("QBuilder;")) {
 				method.delete(true, null);
 				break;
@@ -199,10 +213,12 @@ public class BuilderGenerator {
 		}
 
 		String clazzName = clazz.getElementName();
-		pw.println("/** Default Constructor **/");
-		pw.println("public " + BUILDER_CLASSNAME + "(){}");
-		pw.println("");
-		pw.println("/** Copy Constructor **/");
+		if (generateJavaDoc()) {
+			pw.println("/** Default Constructor **/");
+			pw.println("public " + BUILDER_CLASSNAME + "(){}");
+			pw.println("");
+			pw.println("/** Copy Constructor **/");
+		}
 		pw.println("public " + BUILDER_CLASSNAME + "(" + clazzName + " object){");
 		for (BuilderField field : data.getSelectedFields()) {
 			pw.println("this." + BuilderFieldUtil.getName(field) + "= object." + BuilderFieldUtil.getName(field) + ";");
@@ -226,7 +242,8 @@ public class BuilderGenerator {
 
 			// Standard with/set method
 			printJavadoc(pw, baseName, "Sets", false);
-			pw.println("public " + BUILDER_CLASSNAME + " " + methodName + "(" + fieldType + " " + parameterName + ") {");
+			pw.println(
+					"public " + BUILDER_CLASSNAME + " " + methodName + "(" + fieldType + " " + parameterName + ") {");
 			pw.println("  this." + baseName + "=" + parameterName + ";");
 			pw.println("return this;");
 			pw.println("}");
@@ -240,7 +257,8 @@ public class BuilderGenerator {
 					pw.println("public " + BUILDER_CLASSNAME + " " + methodName + "(" + parameterType + " ... "
 							+ parameterName + ") {");
 					printNotNullCheck(pw, parameterName);
-					importClasses.add(printInitCollection(pw, fieldType, parameterName, parameterType, false, collectionType));
+					importClasses.add(
+							printInitCollection(pw, fieldType, parameterName, parameterType, false, collectionType));
 					importClasses.add(printAddAll(pw, parameterName, true));
 					pw.println(" return this;");
 					pw.println("}");
@@ -249,27 +267,32 @@ public class BuilderGenerator {
 				// add object(s) to a collection
 				if (data.isOption(GeneratorData.GENERATE_ADD_METHODS_FOR_COLLECTIONS)) {
 					printJavadoc(pw, baseName, "Adds to", true);
-					pw.println("public " + BUILDER_CLASSNAME + " add" + methodNameSuffix + "(" + fieldType + " " + parameterName + "Elements" + ") {");
+					pw.println("public " + BUILDER_CLASSNAME + " add" + methodNameSuffix + "(" + fieldType + " "
+							+ parameterName + "Elements" + ") {");
 					printNotNullCheck(pw, parameterName + "Elements");
-					importClasses.add(printInitCollection(pw, fieldType, parameterName, parameterType, true, collectionType));
+					importClasses.add(
+							printInitCollection(pw, fieldType, parameterName, parameterType, true, collectionType));
 					importClasses.add(printAddAll(pw, parameterName + "Elements", fieldName, false));
 					pw.println(" return this;");
 					pw.println("}");
 
 					if (data.isOption(GeneratorData.GENERATE_VARARG_METHODS_FOR_COLLECTIONS)) {
 						printJavadoc(pw, baseName, "Adds to", true);
-						pw.println(
-								"public " + BUILDER_CLASSNAME + " add" + methodNameSuffix + "(" + parameterType + " ... " + parameterName + "Elements" + ") {");
+						pw.println("public " + BUILDER_CLASSNAME + " add" + methodNameSuffix + "(" + parameterType
+								+ " ... " + parameterName + "Elements" + ") {");
 						printNotNullCheck(pw, parameterName + "Elements");
-						importClasses.add(printInitCollection(pw, fieldType, parameterName, parameterType, true, collectionType));
+						importClasses.add(
+								printInitCollection(pw, fieldType, parameterName, parameterType, true, collectionType));
 						importClasses.add(printAddAll(pw, parameterName + "Elements", fieldName, true));
 						pw.println(" return this;");
 						pw.println("}");
 					}
 
 					printJavadoc(pw, baseName, "Adds to", true);
-					pw.println("public " + BUILDER_CLASSNAME + " add" + methodNameSuffix + "(" + parameterType + " " + parameterName + "Element" + ") {");
-					importClasses.add(printInitCollection(pw, fieldType, parameterName, parameterType, true, collectionType));
+					pw.println("public " + BUILDER_CLASSNAME + " add" + methodNameSuffix + "(" + parameterType + " "
+							+ parameterName + "Element" + ") {");
+					importClasses.add(
+							printInitCollection(pw, fieldType, parameterName, parameterType, true, collectionType));
 					pw.println(" this." + parameterName + ".add(" + parameterName + "Element" + ");");
 					pw.println(" return this;");
 					pw.println("}");
@@ -296,7 +319,8 @@ public class BuilderGenerator {
 		}
 	}
 
-	private String printInitCollection(PrintWriter pw, String fieldType, String parameterName, String parameterType, boolean nullCheck, String collectionType) {
+	private String printInitCollection(PrintWriter pw, String fieldType, String parameterName, String parameterType,
+			boolean nullCheck, String collectionType) {
 		String newType = null;
 		String importClass = null;
 		if ("Set".equals(collectionType)) {
@@ -310,8 +334,7 @@ public class BuilderGenerator {
 			pw.println("  if (this." + parameterName + " == null) {");
 			pw.print("  ");
 		}
-		pw.println("  this." + parameterName + " = new " + newType + "<" + parameterType + ">"
-				+ "();");
+		pw.println("  this." + parameterName + " = new " + newType + "<" + parameterType + ">" + "();");
 		if (nullCheck) {
 			pw.println("  }");
 		}
@@ -325,14 +348,17 @@ public class BuilderGenerator {
 	}
 
 	private void printJavadoc(PrintWriter pw, String fieldName, String verb, boolean throwsException) {
-		pw.println("/**");
-		pw.println(" * " + verb + " the {@link #" + fieldName + "} property of this builder");
-		pw.println(" * @param " + fieldName + "");
-		pw.println(" * @return this builder");
-		if (throwsException) {
-			pw.println(" * @throws IllegalArgumentException if " + fieldName + " is null or contains a null element");
+		if (generateJavaDoc()) {
+			pw.println("/**");
+			pw.println(" * " + verb + " the {@link #" + fieldName + "} property of this builder");
+			pw.println(" * @param " + fieldName + "");
+			pw.println(" * @return this builder");
+			if (throwsException) {
+				pw.println(
+						" * @throws IllegalArgumentException if " + fieldName + " is null or contains a null element");
+			}
+			pw.println(" */");
 		}
-		pw.println(" */");
 	}
 
 	private String getFieldBaseName(String fieldName) {
@@ -347,18 +373,21 @@ public class BuilderGenerator {
 	}
 
 	private void createBuildFactoryMethodOnBean(PrintWriter pw, IType clazz) {
-		if (!data.isOption(GeneratorData.GENERATE_BUILD_FACTORY_METHOD_ON_BEAN) || !data.isOption(GeneratorData.GENERATE_COPY_CONSTRUCTOR)) {
+		if (!data.isOption(GeneratorData.GENERATE_BUILD_FACTORY_METHOD_ON_BEAN)
+				|| !data.isOption(GeneratorData.GENERATE_COPY_CONSTRUCTOR)) {
 			return;
 		}
 
 		String methodName = "toBuilder";
-		pw.println("/**");
-		pw.println(" * Creates a new {@link " + BUILDER_CLASSNAME
-				+ "} populated with the properties of this object. This is a convenience method which calls the");
-		pw.println(
-				" * {@link #builder(" + clazz.getElementName() + ")} method with this object as the passed parameter.");
-		pw.println(" * @return a new " + BUILDER_CLASSNAME + " populated with this object's property values");
-		pw.println(" */");
+		if (generateJavaDoc()) {
+			pw.println("/**");
+			pw.println(" * Creates a new {@link " + BUILDER_CLASSNAME
+					+ "} populated with the properties of this object. This is a convenience method which calls the");
+			pw.println(" * {@link #builder(" + clazz.getElementName()
+					+ ")} method with this object as the passed parameter.");
+			pw.println(" * @return a new " + BUILDER_CLASSNAME + " populated with this object's property values");
+			pw.println(" */");
+		}
 		pw.println("public " + BUILDER_CLASSNAME + " " + methodName + "(){");
 		pw.println("return new " + BUILDER_CLASSNAME + "(this);\n}");
 	}
@@ -369,12 +398,14 @@ public class BuilderGenerator {
 		}
 
 		String methodName = "builder";
-		pw.println("/**");
-		pw.println(
-				" * Creates a new {@link " + BUILDER_CLASSNAME + "} of {@link " + clazz.getElementName() + "} objects.");
-		pw.println(" * @return a new " + BUILDER_CLASSNAME);
-		pw.println("");
-		pw.println(" */");
+		if (generateJavaDoc()) {
+			pw.println("/**");
+			pw.println(" * Creates a new {@link " + BUILDER_CLASSNAME + "} of {@link " + clazz.getElementName()
+					+ "} objects.");
+			pw.println(" * @return a new " + BUILDER_CLASSNAME);
+			pw.println("");
+			pw.println(" */");
+		}
 		pw.println("public static " + BUILDER_CLASSNAME + " " + methodName + "(){");
 		pw.println("return new " + BUILDER_CLASSNAME + "();\n}");
 	}

@@ -7,5 +7,9 @@
       <category name="MWensveen.nl buildergenerator"/>
    </feature>
    <bundle id="bg-plugin" version="1.0.0"/>
-   <category-def name="MWensveen.nl buildergenerator" label="MWensveen.nl buildergenerator"/>
+   <category-def name="MWensveen.nl buildergenerator" label="MWensveen.nl buildergenerator">
+      <description>
+         Create the builder class
+      </description>
+   </category-def>
 </site>
