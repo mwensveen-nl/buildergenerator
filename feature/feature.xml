@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="bg-feature"
-      label="Builder Pattern Eclipse Plugin"
-      version="1.0.0"
-      plugin="bg-plugin">
+      id="nl.mwensveen.eclipse.plugins.bg-feature"
+      label="Builder Generator Eclipse Feature"
+      version="1.1.0"
+      plugin="nl.mwensveen.eclipse.plugins.bg-plugin">
 
    <license url="http://en.wikipedia.org/wiki/MIT_License">
       Copyright (c) 2016 MWensveen.nl
@@ -31,10 +31,10 @@ OTHER DEALINGS IN THE SOFTWARE.
    </license>
 
    <plugin
-         id="bg-plugin"
+         id="nl.mwensveen.eclipse.plugins.bg-plugin"
          download-size="0"
          install-size="0"
-         version="1.0.0"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
