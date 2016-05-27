@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>nl.mwensveen.buildergenerator</groupId>
   <artifactId>nl.mwensveen.eclipse.plugins.bg-project</artifactId>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
   <packaging>pom</packaging>
   
   <name>Builder Generator - Project</name>
