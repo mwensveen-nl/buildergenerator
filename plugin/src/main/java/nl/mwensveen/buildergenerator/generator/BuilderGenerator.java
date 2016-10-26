@@ -45,25 +45,26 @@ public class BuilderGenerator {
 		try {
 			removeOldClassConstructor(cu);
 			removeOldBuilderClass(cu);
+			removeOldFactoryMethod(cu);
+			removeOldCopyMethod(cu);
 
 			IType clazz = cu.getTypes()[0];
 
 			IBuffer buffer = cu.getBuffer();
 			StringWriter sw = new StringWriter();
 			PrintWriter pw = new PrintWriter(sw);
-			removeOldFactoryMethod(cu);
-			removeOldCopyMethod(cu);
 			int pos = clazz.getSourceRange().getOffset() + clazz.getSourceRange().getLength() - 1;
 			pw.println();
+			createClassConstructor(clazz, pw);
+			createBuildFactoryMethodOnBean(pw, clazz);
+			createStaticBuilderMethod(pw, clazz);
+
 			Set<String> importClasses = createBuilderClass(clazz, pw);
 			for (String importClass : importClasses) {
 				if (importClass != null) {
 					cu.createImport(importClass, null, null);
 				}
 			}
-			createClassConstructor(clazz, pw);
-			createBuildFactoryMethodOnBean(pw, clazz);
-			createStaticBuilderMethod(pw, clazz);
 
 			if (data.isOption(GeneratorData.FORMAT_SOURCE)) {
 				pw.println();
@@ -118,8 +119,8 @@ public class BuilderGenerator {
 		if (generateJavaDoc()) {
 			pw.println(
 					"/**\n* This class provides methods to build a {@link " + clazz.getFullyQualifiedName() + "}.\n*/");
-			pw.println("public static class " + BUILDER_CLASSNAME + " {");
 		}
+		pw.println("public static class " + BUILDER_CLASSNAME + " {");
 
 		createFieldDeclarations(pw);
 		createCopyConstructor(pw, clazz);
@@ -212,11 +213,16 @@ public class BuilderGenerator {
 			return;
 		}
 
+		// include a default constructor
+
+		// the copy constructor
 		String clazzName = clazz.getElementName();
 		if (generateJavaDoc()) {
 			pw.println("/** Default Constructor **/");
-			pw.println("public " + BUILDER_CLASSNAME + "(){}");
-			pw.println("");
+		}
+		pw.println("public " + BUILDER_CLASSNAME + "(){}");
+		pw.println("");
+		if (generateJavaDoc()) {
 			pw.println("/** Copy Constructor **/");
 		}
 		pw.println("public " + BUILDER_CLASSNAME + "(" + clazzName + " object){");
@@ -228,7 +234,7 @@ public class BuilderGenerator {
 	}
 
 	private Set<String> createBuilderMethods(PrintWriter pw) throws JavaModelException {
-		Set<String> importClasses = new HashSet<String>();
+		Set<String> importClasses = new HashSet<>();
 		for (BuilderField field : data.getSelectedFields()) {
 
 			String fieldName = BuilderFieldUtil.getName(field);
