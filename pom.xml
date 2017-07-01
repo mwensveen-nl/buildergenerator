@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>nl.mwensveen.buildergenerator</groupId>
   <artifactId>nl.mwensveen.eclipse.plugins.bg-project</artifactId>
-  <version>2.0.1</version>
+  <version>3.0.0</version>
   <packaging>pom</packaging>
   
   <name>Builder Generator - Project</name>
@@ -21,7 +21,7 @@
     <repository>
       <id>eclipse</id>
       <layout>p2</layout>
-      <url>http://download.eclipse.org/releases/neon/</url>
+      <url>http://download.eclipse.org/releases/oxygen/</url>
     </repository>
   </repositories>
   <build>

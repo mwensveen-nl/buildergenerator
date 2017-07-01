@@ -6,3 +6,7 @@ This README would normally document whatever steps are necessary to get your app
 
 * Eclipse Plugin Builder Generator
 * Version 1.0.0
+
+
+***
+Based on https://github.com/henningjensen/bpep
