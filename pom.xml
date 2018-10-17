@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>nl.mwensveen.buildergenerator</groupId>
   <artifactId>nl.mwensveen.eclipse.plugins.bg-project</artifactId>
-  <version>4.0.0</version>
+  <version>4.1.0</version>
   <packaging>pom</packaging>
   
   <name>Builder Generator - Project</name>
@@ -21,7 +21,7 @@
     <repository>
       <id>eclipse</id>
       <layout>p2</layout>
-      <url>http://download.eclipse.org/releases/photon/</url>
+      <url>http://download.eclipse.org/releases/2018-09</url>
     </repository>
   </repositories>
   <build>

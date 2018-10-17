@@ -2,13 +2,14 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Builder Generator Eclipse Plugin
 Bundle-SymbolicName: nl.mwensveen.eclipse.plugins.bg-plugin;singleton:=true
-Bundle-Version: 4.0.0
+Bundle-Version: 4.1.0
 Bundle-Activator: nl.mwensveen.buildergenerator.Activator
-Require-Bundle: org.eclipse.ui;bundle-version="[3.109.0,3.110.0)",
+Require-Bundle: org.eclipse.ui;bundle-version="[3.109.0,4.0)",
  org.eclipse.core.resources;bundle-version="[3.13.0,3.14.0)",
- org.eclipse.core.runtime;bundle-version="[3.14.0,3.15.0)",
- org.eclipse.jdt.ui;bundle-version="[3.14.0,3.15.0)",
- org.eclipse.jdt.core;bundle-version="[3.14.0,3.15.0)",
- org.eclipse.jface.text;bundle-version="[3.13.0,3.14.0)"
-Eclipse-AutoStart: true
+ org.eclipse.core.runtime;bundle-version="[3.14.0,4.0)",
+ org.eclipse.jdt.ui;bundle-version="[3.14.0,4.0)",
+ org.eclipse.jdt.core;bundle-version="[3.14.0,4.0)",
+ org.eclipse.jface.text;bundle-version="[3.13.0,4.0)"
+Bundle-ActivationPolicy: lazy
+
 
