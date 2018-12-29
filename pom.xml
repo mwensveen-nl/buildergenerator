@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>nl.mwensveen.buildergenerator</groupId>
   <artifactId>nl.mwensveen.eclipse.plugins.bg-project</artifactId>
-  <version>4.1.0</version>
+  <version>4.2.0</version>
   <packaging>pom</packaging>
   
   <name>Builder Generator - Project</name>
@@ -15,13 +15,13 @@
   <description>Eclipse plugin for generating code for the Builder</description>
 
   <properties>
-    <tycho-version>0.24.0</tycho-version>
+    <tycho-version>1.3.0</tycho-version>
   </properties>
   <repositories>
     <repository>
       <id>eclipse</id>
       <layout>p2</layout>
-      <url>http://download.eclipse.org/releases/2018-09</url>
+      <url>http://download.eclipse.org/releases/2018-12</url>
     </repository>
   </repositories>
   <build>
