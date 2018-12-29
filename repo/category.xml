@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description url="http://buildergenerator.mwensveen.nl">
+      MWensveen.nl buildergenerator: Generator for Builder Pattern Eclipse Plugin
+   </description>
+   <feature url="features/nl.mwensveen.eclipse.plugins.bg-feature_4.2.0.jar" id="nl.mwensveen.eclipse.plugins.bg-feature" version="4.2.0">
+      <category name="nl.mwensveen.eclipse.plugins.buildergenerator"/>
+   </feature>
+   <category-def name="nl.mwensveen.eclipse.plugins.buildergenerator" label="MWensveen.nl Builder Generator">
+      <description>
+         Create the builder class
+      </description>
+   </category-def>
+</site>
