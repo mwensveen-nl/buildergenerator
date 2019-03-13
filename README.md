@@ -9,5 +9,5 @@ Based on https://github.com/henningjensen/bpep
 After installation: use the Builder Generator option in the context menu.
 
 #### Installation
-The plugin can be installed in Eclipse by using the update side.
+The plugin can be installed in Eclipse by using the update site.
 Which can be found [here](http://mwensveen-nl.github.io/buildergenerator/)
