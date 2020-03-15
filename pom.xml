@@ -21,7 +21,7 @@
     <repository>
       <id>eclipse</id>
       <layout>p2</layout>
-      <url>http://download.eclipse.org/releases/2018-12</url>
+      <url>http://download.eclipse.org/releases/2020-03</url>
     </repository>
   </repositories>
   <build>
@@ -88,8 +88,8 @@
           <debug>true</debug>
           <verbose>true</verbose>
           <compilerVersion>1.7</compilerVersion>
-          <source>1.7</source>
-          <target>1.7</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
       <plugin>
