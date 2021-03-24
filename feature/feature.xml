@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="nl.mwensveen.eclipse.plugins.bg-feature"
-      label="Builder Generator Eclipse Feature"
-      version="4.3.0"
+      id="nl.mwensveen.eclipse.plugins.bg"
+      label="Builder Generator Eclipse"
+      version="4.4.0"
       plugin="nl.mwensveen.eclipse.plugins.bg-plugin">
 
    <license url="http://en.wikipedia.org/wiki/MIT_License">

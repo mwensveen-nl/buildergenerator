@@ -7,7 +7,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>nl.mwensveen.buildergenerator</groupId>
   <artifactId>nl.mwensveen.eclipse.plugins.bg-project</artifactId>
-  <version>4.3.0</version>
+  <version>4.4.0</version>
   <packaging>pom</packaging>
   
   <name>Builder Generator - Project</name>
@@ -21,7 +21,7 @@
     <repository>
       <id>eclipse</id>
       <layout>p2</layout>
-      <url>http://download.eclipse.org/releases/2020-03</url>
+      <url>http://download.eclipse.org/releases/2021-03</url>
     </repository>
   </repositories>
   <build>
@@ -66,10 +66,6 @@
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>target-platform-configuration</artifactId>
         <version>${tycho-version}</version>
-        <configuration>
-          <resolver>p2</resolver>
-          <ignoreTychoRepositories>true</ignoreTychoRepositories>
-        </configuration>
       </plugin>
               <!-- important for self-hosting -->
         <plugin>
@@ -137,7 +133,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jarsigner-plugin</artifactId>
-            <version>1.2</version>
+            <version>3.0</version>
             <executions>
               <execution>
                 <id>sign</id>
