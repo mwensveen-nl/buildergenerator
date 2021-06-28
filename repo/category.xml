@@ -3,7 +3,7 @@
    <description url="http://buildergenerator.mwensveen.nl">
       MWensveen.nl buildergenerator: Generator for Builder Pattern Eclipse Plugin
    </description>
-   <feature url="features/nl.mwensveen.eclipse.plugins.bg_4.4.0.jar" id="nl.mwensveen.eclipse.plugins.bg" version="4.4.0">
+   <feature url="features/nl.mwensveen.eclipse.plugins.bg_4.4.1.jar" id="nl.mwensveen.eclipse.plugins.bg" version="4.4.1">
       <category name="nl.mwensveen.eclipse.plugins.buildergenerator"/>
    </feature>
    <category-def name="nl.mwensveen.eclipse.plugins.buildergenerator" label="MWensveen.nl Builder Generator">
