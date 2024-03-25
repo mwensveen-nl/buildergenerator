@@ -10,7 +10,7 @@
    
    <groupId>nl.mwensveen.buildergenerator</groupId>
    <artifactId>nl.mwensveen.eclipse.plugins.bg-project</artifactId>
-   <version>4.4.1</version>
+   <version>4.4.2-SNAPSHOT</version>
    <packaging>pom</packaging>
 
    <name>Builder Generator - Project</name>
@@ -18,7 +18,6 @@
    <description>Eclipse plugin for generating code for the Builder</description>
 
    <properties>
-      <new.version>2.4.2-SNAPSHOT</new.version>
       <tycho.version>4.0.6</tycho.version>
       <target.platform.classifier>Eclipse-2024-03</target.platform.classifier>
       <target.platform.url>http://download.eclipse.org/releases/2023-12</target.platform.url>
@@ -88,7 +87,7 @@
             <plugin>
                <groupId>org.apache.maven.plugins</groupId>
                <artifactId>maven-surefire-plugin</artifactId>
-               <version>${surefire-version}</version>
+               <version>3.2.5</version>
             </plugin>
             <plugin>
                <!-- Executes tests in an OSGi runtime. This is only
@@ -133,44 +132,6 @@
                <groupId>org.apache.maven.plugins</groupId>
                <artifactId>maven-antrun-plugin</artifactId>
                <version>3.1.0</version>
-            </plugin>
-            <plugin>
-               <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-               <groupId>org.eclipse.m2e</groupId>
-               <artifactId>lifecycle-mapping</artifactId>
-               <version>1.0.0</version>
-               <configuration>
-                  <lifecycleMappingMetadata>
-                     <pluginExecutions>
-                        <pluginExecution>
-                           <pluginExecutionFilter>
-                              <groupId>org.apache.maven.plugins</groupId>
-                              <artifactId>maven-antrun-plugin</artifactId>
-                              <versionRange>[1.0,)</versionRange>
-                              <goals>
-                                 <goal>run</goal>
-                              </goals>
-                           </pluginExecutionFilter>
-                           <action>
-                              <ignore />
-                           </action>
-                        </pluginExecution>
-                        <pluginExecution>
-                           <pluginExecutionFilter>
-                              <groupId>org.apache.maven.plugins</groupId>
-                              <artifactId>maven-clean-plugin</artifactId>
-                              <versionRange>[1.0,)</versionRange>
-                              <goals>
-                                 <goal>clean</goal>
-                              </goals>
-                           </pluginExecutionFilter>
-                           <action>
-                              <ignore></ignore>
-                           </action>
-                        </pluginExecution>
-                     </pluginExecutions>
-                  </lifecycleMappingMetadata>
-               </configuration>
             </plugin>
          </plugins>
       </pluginManagement>
