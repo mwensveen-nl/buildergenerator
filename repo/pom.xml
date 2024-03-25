@@ -8,7 +8,9 @@
     <artifactId>nl.mwensveen.eclipse.plugins.bg-project</artifactId>
     <version>4.4.1</version>
   </parent>
+
   <artifactId>nl.mwensveen.eclipse.plugins.bg-repo</artifactId>
   <packaging>eclipse-repository</packaging>
   <name>Builder Generator - Repo</name>
+
 </project>
